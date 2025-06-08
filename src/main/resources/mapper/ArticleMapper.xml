@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.headlines.mapper.ArticleMapper">
+
+    <select id="selectArticleListWithUsername" resultType="com.example.headlines.entity.Article">
+        SELECT a.*, u.username
+        FROM tb_article a
+                 LEFT JOIN tb_user u ON a.user_id = u.id
+        WHERE a.is_deleted = 0 AND u.is_deleted = 0
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="selectArticleListByUserId" resultType="com.example.headlines.entity.Article">
+        SELECT a.*, u.username
+        FROM tb_article a
+                 LEFT JOIN tb_user u ON a.user_id = u.id
+        WHERE a.user_id = #{userId} AND a.is_deleted = 0 AND u.is_deleted = 0
+        ORDER BY a.create_time DESC
+    </select>
+
+</mapper>
